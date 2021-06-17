@@ -32,3 +32,21 @@ public class LoginServlet extends HttpServlet {
         }
     }
 }
+private boolean userFirstName(HttpServletRequest request, HttpServletResponse response, boolean validateUserName)
+			throws IOException, ServletException {
+		if (validateUserName == false) {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+			PrintWriter out = response.getWriter();
+			out.println("<font>Incorrect Regex Pattern</font>");
+			rd.include(request, response);
+			return false;
+		}
+		return true;
+	}
+
+	public boolean validateFirstName(String userName) {
+		Pattern check = Pattern.compile(nameRegex);
+		boolean value = check.matcher(userName).matches();
+		return value;
+	}
+}
